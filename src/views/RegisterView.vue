@@ -27,7 +27,7 @@
                 </div>
 
                 <div>
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary">Register</button>
                 </div>
 
 
@@ -66,6 +66,7 @@ h6 {
     font-weight: 600;
     font-size: 17px;
     cursor: pointer;
+    text-decoration: none;
     
 }
 
