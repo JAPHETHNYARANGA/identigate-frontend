@@ -5,8 +5,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 col-sm-6">
-                    this side
-                    <btton class="btn btn-primary">hello</btton>
+                    <!-- <h2>{{ chartTitle }}</h2> -->
+                    <doughnut :data="chartData" :options="chartOptions"></doughnut>
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <img src="../assets/growth.png" alt="My Image">
@@ -25,12 +25,32 @@
 
 <script>
 import Sidebar from '../views/Sidenav.vue'
+import { Pie } from 'vue-chartjs'
 
 export default {
-    name: 'ParentView',
+    // name: 'ParentView',
     components: {
         Sidebar
+    },
+
+    name: 'PieChart',
+  extends: Pie,
+  props: {
+    chartTitle: {
+      type: String,
+      required: true
+    },
+    data: {
+      type: Object,
+      required: true
     }
+  },
+  mounted () {
+    this.renderChart(this.data, {
+      responsive: true,
+      maintainAspectRatio: false
+    })
+  }
 }
 
 </script>
@@ -44,7 +64,7 @@ export default {
     padding: 0px 10px;
 }
 
-img{
+img {
     margin-top: 3%;
     height: 20%;
 }

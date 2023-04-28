@@ -1,40 +1,45 @@
 <template>
     <div class="sidenav">
-        <a href="#about">DashBoard</a>
-        <a href="#services">Products</a>
-        <a href="#clients">Clients</a>
-        <a href="#contact">Contact</a>
+        <router-link to="/dashboard">
+            DashBoard
+        </router-link>
+        <router-link to="/products">
+          Products
+        </router-link>
+
+        
+       
     </div>
 </template>
 
 <style scoped>
 .sidenav {
-  height: 100%;
-  width: 160px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  padding-top: 20px;
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
 }
 
 .sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
-  display: block;
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
 }
 
 .sidenav a:hover {
-  color: #f1f1f1;
+    color: #f1f1f1;
 }
 </style>
 
 <script>
 export default {
-  name: 'SidebarView'
+    name: 'SidebarView'
 }
 </script>

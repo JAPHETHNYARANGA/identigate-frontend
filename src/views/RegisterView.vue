@@ -3,7 +3,7 @@
         <div class="container-fluid">
 
             <h1>Register </h1>
-            <form class="center">
+            <form class="center" @submit.prevent="register">
 
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Name</label>
@@ -67,9 +67,8 @@ h6 {
     font-size: 17px;
     cursor: pointer;
     text-decoration: none;
-    
-}
 
+}
 </style>
   
 <script>
@@ -78,13 +77,32 @@ export default {
         return {
             email: '',
             password: '',
-            name:'',
+            name: '',
         };
     },
     methods: {
-        loginpage() {
-            // Implement login functionality here
-            console.log('login pressed')
+        async register() {
+            const email = this.email;
+            const password = this.password;
+            const name = this.name;
+            const response = await fetch("http://127.0.0.1:8000/api/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ name, email, password })
+            });
+
+            const data = await response.json();
+
+            // check if login was successful
+            if (data.success) {
+                // store the token in the application
+                localStorage.setItem("token", data.token);
+                console.log("Success:", data.message);
+            } else {
+                console.error("Login failed:", data.message);
+            }
         },
     },
 };
