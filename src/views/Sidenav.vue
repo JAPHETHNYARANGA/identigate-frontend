@@ -35,6 +35,12 @@
 .sidenav a:hover {
     color: #f1f1f1;
 }
+
+@media only screen and (max-width: 400px) {
+ .sidenav{
+    display: none;
+ }
+}
 </style>
 
 <script>

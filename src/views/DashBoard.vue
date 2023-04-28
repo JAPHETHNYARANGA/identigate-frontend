@@ -1,4 +1,5 @@
 <template>
+    
     <Sidebar />
 
     <div class="main">

@@ -188,4 +188,14 @@ form {
     transform: translateX(-50%);
     margin-top: 5%;
 }
+
+@media only screen and (max-width: 400px) {
+    .main {
+    margin-left: 1px;
+    /* Same as the width of the sidenav */
+    font-size: 28px;
+    /* Increased text to enable scrolling */
+    padding: 0px 10px;
+    }
+}
 </style>
