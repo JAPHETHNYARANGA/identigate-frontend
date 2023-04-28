@@ -1,8 +1,8 @@
 <template>
     <div class="sidenav">
-        <router-link to="/dashboard">
+        <!-- <router-link to="/dashboard">
             DashBoard
-        </router-link>
+        </router-link> -->
         <a href="#" @click.prevent="navigateToProducts">Products</a>
         <a href="#" @click.prevent="logout">Logout</a>
 

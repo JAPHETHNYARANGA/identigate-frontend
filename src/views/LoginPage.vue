@@ -94,7 +94,7 @@
           // store the token in the application
           localStorage.setItem("token", data.token);
           console.log("Success:", data.message);
-          this.$router.push({ path: '/dashboard' });
+          this.$router.push({ path: '/products' });
         } else {
           console.error("Login failed:", data.message);
         }
