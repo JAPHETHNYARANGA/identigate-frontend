@@ -46,6 +46,8 @@ export default {
             this.$router.push('/products');
         },
 
+        
+
         async logout() {
 
 

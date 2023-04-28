@@ -30,10 +30,10 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">{{ item.name }}</h5>
-                                <p class="card-text">{{ item.description }}</p>
+                                <p class="card-text">{{ item.Description }}</p>
                                 <div class="row">
                                     <div class="col-6">
-                                        <a href="#" class="btn btn-success">Update</a>
+                                        <a @click.prevent="updateItem(item.id)" class="btn btn-success">Update</a>
                                     </div>
                                     <div class="col-6">
                                         <a @click.prevent="deleteItem(item.id)" class="btn btn-danger">Delete</a>
@@ -97,7 +97,7 @@ export default {
             }
         },
 
-        async deleteItem(itemId){
+        async deleteItem(itemId) {
             console.log('delete', itemId)
 
             try {
@@ -120,21 +120,28 @@ export default {
 
         },
 
-        async addItem(){
+        async addItem() {
             this.$router.push('/create');
-        }
+        },
+        async updateItem(itemId) {
+            this.$router.push({
+                name: 'update',
+                params: { itemId: itemId }
+            });
+
+        },
 
     },
 
 
     beforeRouteEnter(to, from, next) {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      next('/'); // Redirect to login page
-    }else {
-      next();
+        const token = localStorage.getItem('token');
+        if (!token) {
+            next('/'); // Redirect to login page
+        } else {
+            next();
+        }
     }
-  }
 
 }
 
