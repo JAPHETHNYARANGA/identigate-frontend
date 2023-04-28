@@ -44,6 +44,7 @@
 
 <script>
 import Sidebar from '../views/Sidenav.vue'
+import { BASE_URL } from '../constants';
 
 
 export default {
@@ -72,7 +73,7 @@ export default {
             formData.append('description', this.description); 
             formData.append('image', this.file)
 
-            const response = await fetch("http://127.0.0.1:8000/api/items", {
+            const response = await fetch(`${BASE_URL}/api/items`, {
                 method: "POST",
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token'),

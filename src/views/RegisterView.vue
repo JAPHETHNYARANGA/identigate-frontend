@@ -72,6 +72,9 @@ h6 {
 </style>
   
 <script>
+
+import { BASE_URL } from '../constants';
+
 export default {
     data() {
         return {
@@ -85,7 +88,7 @@ export default {
             const email = this.email;
             const password = this.password;
             const name = this.name;
-            const response = await fetch("http://127.0.0.1:8000/api/register", {
+            const response = await fetch(`${BASE_URL}/api/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

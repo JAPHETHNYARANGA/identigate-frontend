@@ -60,6 +60,7 @@
 
 <script>
 import Sidebar from '../views/Sidenav.vue'
+import { BASE_URL } from '../constants';
 
 
 export default {
@@ -82,8 +83,10 @@ export default {
             if (!imageName) {
                 return '';
             }
-            return `http://127.0.0.1:8000/storage/${imageName.replace("public/", "")}`;
+            return `${BASE_URL}/storage/${imageName.replace("public/", "")}`;
         },
+
+       
         async fetchItems() {
             try {
                 const response = await fetch("http://127.0.0.1:8000/api/items", {
@@ -108,7 +111,7 @@ export default {
             console.log('delete', itemId)
 
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/deleteItem/${itemId}`, {
+                const response = await fetch(`${BASE_URL}/api/deleteItem/${itemId}`, {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('token'),
                         'Content-Type': 'application/json'

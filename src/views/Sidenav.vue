@@ -38,6 +38,8 @@
 </style>
 
 <script>
+import { BASE_URL } from '../constants';
+
 export default {
     name: 'SidebarView',
 
@@ -52,7 +54,7 @@ export default {
 
 
             // Make request to logout endpoint
-            const response = await fetch('http://127.0.0.1:8000/api/logout', {
+            const response = await fetch(`${BASE_URL}/api/logout`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -62,7 +62,12 @@
   </style>
   
   <script>
+  import { BASE_URL } from '../constants';
+
   export default {
+
+    
+
     data() {
       return {
         email: '',
@@ -74,7 +79,7 @@
       async login() {
         const email = this.email;
         const password = this.password;
-        const response = await fetch("http://127.0.0.1:8000/api/login", {
+        const response = await fetch(`${BASE_URL}/api/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

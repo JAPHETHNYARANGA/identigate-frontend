@@ -10,19 +10,19 @@
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Name</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        v-model="item.name"  required>
+                            v-model="item.name" required>
 
                     </div>
 
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Description</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                        v-model="item.Description"  required>
+                            v-model="item.Description" required>
 
                     </div>
 
                     <label class="form-label" for="customFile">Add Image</label>
-                    <input type="file" class="form-control" id="customFile" />
+                    <input type="file" class="form-control" id="customFile" @change="onFileChange" ref="fileInput" />
 
                     <div>
                         <button type="submit" class="btn btn-primary">Add Product</button>
@@ -41,6 +41,7 @@
 
 <script>
 import Sidebar from '../views/Sidenav.vue'
+import { BASE_URL } from '../constants';
 
 
 export default {
@@ -52,10 +53,11 @@ export default {
     data() {
         return {
             item: {
-                
+
                 name: '',
                 Description: '',
-               
+                file: null,
+
             }
 
         }
@@ -68,10 +70,13 @@ export default {
 
 
     methods: {
+        onFileChange(event) {
+            this.file = event.target.files[0];
+        },
 
         async fetchItem() {
             try {
-                const response = await fetch("http://127.0.0.1:8000/api/item/" + this.$route.params.itemId, {
+                const response = await fetch(`${BASE_URL}/api/item/` + this.$route.params.itemId, {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('token'),
                         'Content-Type': 'application/json'
@@ -93,7 +98,8 @@ export default {
         async update() {
             const name = this.item.name;
             const description = this.item.Description;
-            const response = await fetch("http://127.0.0.1:8000/api/updateItem/" + this.$route.params.itemId, {
+
+            const response = await fetch(`${BASE_URL}/api/updateItem/` + this.$route.params.itemId, {
                 method: "PUT",
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token'),
@@ -106,14 +112,44 @@ export default {
 
             // check if update was successful
             if (data.success) {
-               
-               
+
+
                 console.log("Success:", data.message);
                 this.$router.push({ path: '/products' });
             } else {
                 console.error(" failed:", data.message);
             }
-        }
+        },
+        
+
+        // async update() {
+        //     const formData = new FormData();
+        //     formData.append('name', this.item.name);
+        //     formData.append('description', this.item.Description);
+        //     formData.append('image', this.item.file)
+
+        //     const response = await fetch("http://127.0.0.1:8000/api/updateItem/" + this.$route.params.itemId, {
+        //         method: "PUT",
+        //         headers: {
+        //             'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        //         },
+        //         body: formData
+        //     });
+
+        //     const data = await response.json();
+
+        //     // check if post was successful
+        //     if (data.success) {
+        //         console.log("Success:", data.message);
+        //         this.$router.push({ path: '/products' });
+        //     } else {
+        //         console.error(" failed:", data.message);
+        //         console.log(this.item.file)
+        //     }
+        // }
+
+
+
 
 
     },
