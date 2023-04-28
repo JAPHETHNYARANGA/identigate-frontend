@@ -10,7 +10,7 @@
                 <p>Products Page</p>
 
                 <div class="col-md-2">
-                    <div class="btn btn-success">
+                    <div class="btn btn-success" @click.prevent="addItem">
                         Add Item
                     </div>
                 </div>
@@ -118,6 +118,10 @@ export default {
                 console.error(error);
             }
 
+        },
+
+        async addItem(){
+            this.$router.push('/create');
         }
 
     },
