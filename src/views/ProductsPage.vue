@@ -36,7 +36,7 @@
                                         <a href="#" class="btn btn-success">Update</a>
                                     </div>
                                     <div class="col-6">
-                                        <a href="#" class="btn btn-danger">Delete</a>
+                                        <a @click.prevent="deleteItem(item.id)" class="btn btn-danger">Delete</a>
                                     </div>
                                 </div>
 
@@ -95,6 +95,29 @@ export default {
             } catch (error) {
                 console.error(error);
             }
+        },
+
+        async deleteItem(itemId){
+            console.log('delete', itemId)
+
+            try {
+                const response = await fetch(`http://127.0.0.1:8000/api/deleteItem/${itemId}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const data = await response.json();
+                if (data.success) {
+                    this.fetchItems()
+                } else {
+                    console.error(data.message);
+                }
+
+            } catch (error) {
+                console.error(error);
+            }
+
         }
 
     },
