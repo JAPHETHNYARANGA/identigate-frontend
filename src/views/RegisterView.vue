@@ -85,7 +85,7 @@ export default {
             const email = this.email;
             const password = this.password;
             const name = this.name;
-            const response = await fetch("http://127.0.0.1:8000/api/login", {
+            const response = await fetch("http://127.0.0.1:8000/api/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -98,8 +98,9 @@ export default {
             // check if login was successful
             if (data.success) {
                 // store the token in the application
-                localStorage.setItem("token", data.token);
+                
                 console.log("Success:", data.message);
+                this.$router.push({ path: '/' });
             } else {
                 console.error("Login failed:", data.message);
             }

@@ -81,7 +81,7 @@ export default {
             try {
                 const response = await fetch("http://127.0.0.1:8000/api/items", {
                     headers: {
-                        'Authorization': 'Bearer ' + '1|HcFuB34PCtqFyhbTlGpuyXlemXZ1I52foa2Amb7c',
+                        'Authorization': 'Bearer ' + localStorage.getItem('token'),
                         'Content-Type': 'application/json'
                     }
                 });

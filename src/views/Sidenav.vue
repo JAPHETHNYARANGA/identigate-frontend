@@ -3,12 +3,11 @@
         <router-link to="/dashboard">
             DashBoard
         </router-link>
-        <router-link to="/products">
-          Products
-        </router-link>
+        <a href="#" @click.prevent="navigateToProducts">Products</a>
+        <a href="#" @click.prevent="logout">Logout</a>
 
-        
-       
+
+
     </div>
 </template>
 
@@ -40,6 +39,40 @@
 
 <script>
 export default {
-    name: 'SidebarView'
+    name: 'SidebarView',
+
+    methods: {
+        async navigateToProducts() {
+            this.$router.push('/products');
+        },
+
+        async logout() {
+
+
+            // Make request to logout endpoint
+            const response = await fetch('http://127.0.0.1:8000/api/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+
+
+
+            const data = await response.json();
+
+            if (data.success) {
+                console.log('Logged out successfully:', data.message);
+                // Remove token from local storage
+                localStorage.removeItem('token');
+
+                // Redirect to login page
+                this.$router.push('/');
+            } else {
+                console.error('Logout failed:', data.message);
+            }
+        }
+    }
 }
 </script>
