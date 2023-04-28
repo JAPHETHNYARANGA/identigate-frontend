@@ -7,7 +7,7 @@
 
 
             <div class="row">
-                <p>Products Page</p>
+                <h2>Products Page</h2>
 
                 <div class="col-md-2">
                     <div class="btn btn-success" @click.prevent="addItem">
@@ -22,13 +22,6 @@
                             <input type="search" class="form-control" id="datatable-search-input" placeholder="search here"
                                 v-model="searchText">
                         </div>
-
-                        
-
-                    
-
-
-
                 </div>
 
                 <div class="row">
@@ -38,7 +31,7 @@
                                 <img class="card-img-top" :src="getImageUrl(item.image)" alt="item image">
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">{{ item.name }}</h5>
+                                <h2 class="card-title">{{ item.name }}</h2>
                                 <p class="card-text">{{ item.Description }}</p>
                                 <div class="row">
                                     <div class="col-6">
@@ -198,5 +191,13 @@ img {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+}
+
+h2{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+p{
+    font-size: 1rem;
 }
 </style>
