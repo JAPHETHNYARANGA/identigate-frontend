@@ -26,7 +26,7 @@
                     <div class="col-md-3 " v-for="item in items" :key="item.id">
                         <div class="card shadow-lg p-3 mb-5 bg-white rounded">
                             <div class="d-flex justify-content-center">
-                                <img class="card-img-top" src="../assets/logo.png" alt="Card image cap">
+                                <img class="card-img-top" :src="getImageUrl(item.image)" alt="item image">
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">{{ item.name }}</h5>
@@ -77,6 +77,13 @@ export default {
         this.fetchItems()
     },
     methods: {
+
+        getImageUrl(imageName) {
+            if (!imageName) {
+                return '';
+            }
+            return `http://127.0.0.1:8000/storage/${imageName.replace("public/", "")}`;
+        },
         async fetchItems() {
             try {
                 const response = await fetch("http://127.0.0.1:8000/api/items", {

@@ -6,7 +6,7 @@
             <div class="row">
                 <h5>Create Product</h5>
 
-                <form class="center" @submit.prevent="create">
+                <form class="center" @submit.prevent="create" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Name</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
@@ -15,15 +15,18 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Password</label>
+                        <label for="exampleInputEmail1" class="form-label">Description</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                             v-model="description" required>
 
                     </div>
 
                     <label class="form-label" for="customFile">Add Image</label>
-                    <input type="file" class="form-control" id="customFile" />
+                    <input type="file" class="form-control" id="customFile" @change="onFileChange" ref="fileInput"
+                        />
 
+
+                   
                     <div>
                         <button type="submit" class="btn btn-primary">Add Product</button>
                     </div>
@@ -41,7 +44,7 @@
 
 <script>
 import Sidebar from '../views/Sidenav.vue'
-import { Pie } from 'vue-chartjs'
+
 
 export default {
     // name: 'ParentView',
@@ -52,34 +55,43 @@ export default {
     data() {
         return {
             name: '',
-            description: ''
+            description: '',
+            file: null,
         }
 
 
     },
     methods: {
+
+        onFileChange(event) {
+            this.file = event.target.files[0];
+        },
         async create() {
-            const name = this.name;
-            const description = this.description;
+            const formData = new FormData();
+            formData.append('name', this.name);
+            formData.append('description', this.description); 
+            formData.append('image', this.file)
+
             const response = await fetch("http://127.0.0.1:8000/api/items", {
                 method: "POST",
                 headers: {
                     'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                    "Content-Type": "application/json"
+                    
                 },
-                body: JSON.stringify({ name , description })
+                body: formData
             });
 
             const data = await response.json();
 
             // check if post was successful
             if (data.success) {
-               
-               
+
+
                 console.log("Success:", data.message);
                 this.$router.push({ path: '/products' });
             } else {
                 console.error(" failed:", data.message);
+                console.log(this.file)
             }
         }
     },

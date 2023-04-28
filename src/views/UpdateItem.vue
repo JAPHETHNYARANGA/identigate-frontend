@@ -41,7 +41,7 @@
 
 <script>
 import Sidebar from '../views/Sidenav.vue'
-import { Pie } from 'vue-chartjs'
+
 
 export default {
     // name: 'ParentView',
