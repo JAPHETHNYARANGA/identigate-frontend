@@ -13,11 +13,20 @@
                     <div class="btn btn-success" @click.prevent="addItem">
                         Add Item
                     </div>
+                    <button class="btn btn-success  m-3" @click="fetchItems">Search</button>
                 </div>
                 <div class="col-md-10">
-                    <div class="form-outline mb-4">
-                        <input type="search" class="form-control" id="datatable-search-input" placeholder="search here">
-                    </div>
+                   
+
+                        <div class="form-outline m-3 mb-4">
+                            <input type="search" class="form-control" id="datatable-search-input" placeholder="search here"
+                                v-model="searchText">
+                        </div>
+
+                        
+
+                    
+
 
 
                 </div>
@@ -71,11 +80,20 @@ export default {
 
     data() {
         return {
-            items: []
+            items: [],
+            searchText: ''
         };
     },
     mounted() {
         this.fetchItems()
+    },
+
+    computed: {
+        filteredItems() {
+            return this.items.filter(item => {
+                return item.name.toLowerCase().includes(this.searchText.toLowerCase())
+            })
+        }
     },
     methods: {
 
@@ -86,10 +104,12 @@ export default {
             return `${BASE_URL}/storage/${imageName.replace("public/", "")}`;
         },
 
-       
+
         async fetchItems() {
             try {
-                const response = await fetch("http://127.0.0.1:8000/api/items", {
+
+                const url = `${BASE_URL}/api/items?search=${this.searchText}`
+                const response = await fetch(url, {
                     headers: {
                         'Authorization': 'Bearer ' + localStorage.getItem('token'),
                         'Content-Type': 'application/json'
@@ -170,5 +190,13 @@ img {
     height: 5rem;
     width: 5rem;
     text-align: center;
+}
+
+.search-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
 </style>
