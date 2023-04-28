@@ -50,6 +50,15 @@ export default {
       responsive: true,
       maintainAspectRatio: false
     })
+  },
+
+  beforeRouteEnter(to, from, next) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      next('/'); // Redirect to login page
+    } else {
+      next();
+    }
   }
 }
 
